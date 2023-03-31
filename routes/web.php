@@ -16,3 +16,15 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/juego', function () {
+    return view('juego');
+})->name('juego');
+
+Route::view('/registrar','auth.registrar')->name('Registrar');
+Route::post('/registrar',[RegisteredUserController::class,'store']);
+
+
+Route::view('/login','auth.login')->name('login');
+Route::post('/login',[AuthenticatedSessionController::class,'store']);
+Route::post('/logout',[AuthenticatedSessionController::class,'destroy'])->name('logout');
