@@ -1,7 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\Auth\RegisteredUserController;
+use App\Http\Controllers\Auth\AuthenticatedSessionController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -21,7 +22,7 @@ Route::get('/juego', function () {
     return view('juego');
 })->name('juego');
 
-Route::view('/registrar','auth.registrar')->name('Registrar');
+Route::view('/registrar','auth.registrar')->name('registrar');
 Route::post('/registrar',[RegisteredUserController::class,'store']);
 
 

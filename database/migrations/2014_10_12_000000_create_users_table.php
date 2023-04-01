@@ -18,11 +18,11 @@ return new class extends Migration
             $table->integer('edad');
             $table->string('usuario');            
             $table->string('contrasena');
-            $table->integer('puntajeAcum');
-            $table->integer('admin');
-            $table->integer('veces_con_mas_puntos');
-            $table->integer('coincidenciasx2');
-            $table->integer('coincidenciasx3');
+            $table->integer('puntajeAcum')->default('0');
+            $table->integer('admin')->default('0');
+            $table->integer('veces_con_mas_puntos')->default('0');
+            $table->integer('coincidenciasx2')->default('0');
+            $table->integer('coincidenciasx3')->default('0');
 
             $table->timestamps();
         });
