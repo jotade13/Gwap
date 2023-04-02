@@ -13,19 +13,20 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->string('nombre');
-            $table->string('sexo');
-            $table->integer('edad');
+            $table->string('nombre')->unique();
             $table->string('usuario');            
             $table->string('contrasena');
-            $table->integer('puntajeAcum')->default('0');
-            $table->integer('admin')->default('0');
-            $table->integer('veces_con_mas_puntos')->default('0');
-            $table->integer('coincidenciasx2')->default('0');
-            $table->integer('coincidenciasx3')->default('0');
-
+            $table->integer('edad');
+            $table->string('sexo');
+            $table->string('admin');
+            $table->integer('puntajeAcum');
+            $table->integer('veces_con_mas_puntos');
+            $table->integer('coincidenciasx2');
+            $table->integer('coincidenciasx3');
+            $table->integer('puntaje_maximo_juego');
             $table->timestamps();
         });
+
     }
 
     /**
