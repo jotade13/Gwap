@@ -7,13 +7,13 @@
             <h2 id='Usuario'>Usuario</h2>
         </div>
         <div class="entrada">
-            <input type="text" name="Usuario" class="input-titulo">
+            <input type="text" name="usuario" class="input-titulo">
         </div>
-        <div class="titulo-crear">
-        @error('Usuario')
+        @error('usuario')
             <small>{{$message}}</small>
             <br>
         @enderror
+        <div class="titulo-crear">
             <h2 id='titulo'>Contraseña</h2>
         </div>
         <div class="entrada">

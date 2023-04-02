@@ -16,11 +16,11 @@ use App\Http\Controllers\Auth\AuthenticatedSessionController;
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->middleware('auth');
 
 Route::get('/juego', function () {
     return view('juego');
-})->name('juego');
+})->name('juego')->middleware('auth');
 
 Route::view('/registrar','auth.registrar')->name('registrar');
 Route::post('/registrar',[RegisteredUserController::class,'store']);

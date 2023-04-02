@@ -22,10 +22,10 @@ class RegisteredUserController extends Controller
         User::create([
             'nombre' => $request->nombre,
             'usuario' => $request->usuario,
-            'contrasena' => bcrypt($request->password),
+            'password' => bcrypt($request->password),
             'edad' => $request->edad,
             'sexo' => $request->sexo,
-            'admin' => 'yes',
+            'admin' => 'no',
             'puntajeAcum' => 0,
             'veces_con_mas_puntos' => 0,
             'coincidenciasx2' => 0,
