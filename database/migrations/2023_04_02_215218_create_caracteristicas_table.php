@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('caracteristicas', function (Blueprint $table) {
             $table->id();
-            $tabke->id('id_juego');
-            $tabke->id('id_imagen');
-            $tabke->id('id_usuario');
+            $tabke->bigInteger('id_juego');
+            $tabke->bigInteger('id_imagen');
+            $tabke->bigInteger('id_usuario');
             $tabke->string('texto');
             $table->timestamps();
         });

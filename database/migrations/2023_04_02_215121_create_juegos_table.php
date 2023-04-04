@@ -13,14 +13,14 @@ return new class extends Migration
     {
         Schema::create('juegos', function (Blueprint $table) {
             $table->id();
-            $table->id('imagen1');
-            $table->id('imagen2');
-            $table->id('imagen3');
-            $table->id('jugador1');
+            $table->biginteger('imagen1');
+            $table->bigInteger('imagen2');
+            $table->bigInteger('imagen3');
+            $table->bigInteger('jugador1');
             $table->integer('puntaje1');
-            $table->id('jugador2');
+            $table->bigInteger('jugador2');
             $table->integer('puntaje2');
-            $table->id('jugador3');
+            $table->bigInteger('jugador3');
             $table->integer('puntaje3');
             $table->timestamps();
         });
