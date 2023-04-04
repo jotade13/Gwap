@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
+use App\Http\Controllers\JuegoController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -14,13 +15,7 @@ use App\Http\Controllers\Auth\AuthenticatedSessionController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-})->middleware('auth');
-
-Route::get('/juego', function () {
-    return view('juego');
-})->name('juego')->middleware('auth');
+Route::view('/','welcome')->middleware('auth');
 
 Route::view('/registrar','auth.registrar')->name('registrar');
 Route::post('/registrar',[RegisteredUserController::class,'store']);
@@ -29,3 +24,5 @@ Route::post('/registrar',[RegisteredUserController::class,'store']);
 Route::view('/login','auth.login')->name('login');
 Route::post('/login',[AuthenticatedSessionController::class,'store']);
 Route::post('/logout',[AuthenticatedSessionController::class,'destroy'])->name('logout');
+
+Route::get('/juego',[JuegoController::class,'CrearJuego'])->middleware('auth')->name('CrearJuego');

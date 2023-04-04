@@ -6,7 +6,7 @@
 <body>
     <header>
         <div class="jugar">
-            <a href="{{route('juego')}}"><h2>jugar</h2></a>
+            <a href="{{route('CrearJuego')}}"><h2>Crear Juego</h2></a>
         </div>
         <div class="nav">
             <h3>nombre</h3>
