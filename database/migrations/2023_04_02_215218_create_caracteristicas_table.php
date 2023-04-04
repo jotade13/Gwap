@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::create('caracteristicas', function (Blueprint $table) {
             $table->id();
-            $tabke->bigInteger('id_juego');
-            $tabke->bigInteger('id_imagen');
-            $tabke->bigInteger('id_usuario');
-            $tabke->string('texto');
+            $table->bigInteger('id_juego');
+            $table->bigInteger('id_imagen');
+            $table->bigInteger('id_usuario');
+            $table->string('texto');
             $table->timestamps();
         });
     }
