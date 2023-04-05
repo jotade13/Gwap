@@ -5,8 +5,8 @@
 </head>
 <body>
     <header>
-        <div class="jugar">
-            <a href="{{route('CrearJuego')}}"><h2>Crear Juego</h2></a>
+        <div class="Iniciar">
+            <a href="{{route('VerPartidas')}}"><h2>Iniciar</h2></a>
         </div>
         <div class="nav">
             <h3>nombre</h3>
