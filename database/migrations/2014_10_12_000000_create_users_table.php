@@ -18,7 +18,6 @@ return new class extends Migration
             $table->string('password');
             $table->integer('edad');
             $table->string('sexo');
-            $table->string('admin');
             $table->integer('puntajeAcum');
             $table->integer('veces_con_mas_puntos');
             $table->integer('coincidenciasx2');

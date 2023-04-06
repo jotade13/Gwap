@@ -5,9 +5,11 @@
 </head>
 <body>
     <header>
+        @role('jugador')
         <div class="Iniciar">
             <a href="{{route('VerPartidas')}}"><h2>Iniciar</h2></a>
         </div>
+        @endrole
         <div class="nav">
             <h3>nombre</h3>
             <form action="{{route('logout')}}" method="post">

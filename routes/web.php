@@ -28,3 +28,5 @@ Route::post('/logout',[AuthenticatedSessionController::class,'destroy'])->name('
 Route::get('/juego',[JuegoController::class,'index'])->middleware('auth')->name('VerPartidas');
 Route::get('/juego/create',[JuegoController::class,'create'])->middleware('auth')->name('CrearJuego');
 Route::get('/juego/{partida}',[JuegoController::class,'agregarJugador'])->middleware('auth')->name('AgregarJugador');
+
+Route::view('/admin','admin.admin')->name('admin.principal')->middleware('role:admin');

@@ -25,13 +25,12 @@ class RegisteredUserController extends Controller
             'password' => bcrypt($request->password),
             'edad' => $request->edad,
             'sexo' => $request->sexo,
-            'admin' => 'no',
             'puntajeAcum' => 0,
             'veces_con_mas_puntos' => 0,
             'coincidenciasx2' => 0,
             'coincidenciasx3' => 0,
             'puntaje_maximo_juego' => 0
-        ]);
+        ])->assignRole('jugador');
         return to_route('login');
     }
 }
