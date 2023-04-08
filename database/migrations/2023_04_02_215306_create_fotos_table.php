@@ -14,16 +14,16 @@ return new class extends Migration
         Schema::create('fotos', function (Blueprint $table) {
             $table->id();
             $table->string('nombre');
-            $table->string('palabra0');
-            $table->string('palabra1');
-            $table->string('palabra2');
-            $table->string('palabra3');
-            $table->string('palabra4');
-            $table->string('palabra5');
-            $table->string('palabra6');
-            $table->string('palabra7');
-            $table->string('palabra8');
-            $table->string('palabra9');
+            $table->string('palabra0')->nullable();
+            $table->string('palabra1')->nullable();
+            $table->string('palabra2')->nullable();
+            $table->string('palabra3')->nullable();
+            $table->string('palabra4')->nullable();
+            $table->string('palabra5')->nullable();
+            $table->string('palabra6')->nullable();
+            $table->string('palabra7')->nullable();
+            $table->string('palabra8')->nullable();
+            $table->string('palabra9')->nullable();
             $table->timestamps();
         });
     }
