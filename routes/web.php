@@ -17,7 +17,7 @@ use App\Http\Controllers\AdminController;
 |
 */
 
-Route::view('/','welcome')->middleware('auth');
+Route::view('/','welcome')->name('principal')->middleware('auth');
 
 Route::view('/registrar','auth.registrar')->name('registrar');
 Route::post('/registrar',[RegisteredUserController::class,'store']);

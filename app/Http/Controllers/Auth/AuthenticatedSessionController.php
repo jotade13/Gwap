@@ -6,11 +6,14 @@ use Illuminate\Validation\ValidationException;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Spatie\Permission\Traits\HasRoles;
 
 
 
 class AuthenticatedSessionController extends Controller
 {
+    use HasRoles;
+
     public function username()
     {
         return 'usuario';
@@ -30,7 +33,11 @@ class AuthenticatedSessionController extends Controller
             ]);
         }
         $request->session()->regenerate();
-        return redirect()->intended();
+        if (Auth::user()->hasRole('admin')) {
+            return redirect()->route('admin.principal');
+        } else {
+            return redirect()->route('principal');
+        }
     }
 
     public function destroy(Request $request)
