@@ -5,6 +5,7 @@ use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\JuegoController;
 use App\Http\Controllers\FotoController;
+use App\Http\Controllers\AdminController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -30,6 +31,6 @@ Route::get('/juego',[JuegoController::class,'index'])->middleware('auth')->name(
 Route::get('/juego/create',[JuegoController::class,'create'])->middleware('auth')->name('CrearJuego');
 Route::get('/juego/{partida}',[JuegoController::class,'agregarJugador'])->middleware('auth')->name('AgregarJugador');
 
-Route::view('/admin','admin.admin')->name('admin.principal')->middleware('role:admin');
+Route::get('/admin',[AdminController::class,'index'])->name('admin.principal')->middleware('role:admin');
 Route::post('/admin',[FotoController::class,'store'])->name('admin.subirImagen')->middleware('role:admin');
 
