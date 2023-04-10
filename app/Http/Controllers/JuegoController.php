@@ -10,18 +10,28 @@ class JuegoController extends Controller
 {
     public function create()
     {
-        Juego::create([
+        $partidas = Juego::get();
+        $idUsuario = Auth::id();
+        foreach ($partidas as $partida) {
+
+            if ($partida->jugador1==$idUsuario) {
+
+                return view('juego.partida',['partida'=>$partida]);
+            }
+        }
+        $partida=Juego::create([
             'imagen1' => 0,
             'imagen2' => 0,
             'imagen3' => 0,
-            'jugador1' => Auth::id(),
+            'jugador1' => $idUsuario,
             'jugador2' => 0,
             'jugador3' => 0,
             'puntaje1' => 0,
             'puntaje2' => 0,
             'puntaje3' => 0
         ]);
-        return 'Espera';
+        
+        return view('juego.partida',['partida'=>$partida]);
     }
     public function index(){
         $partidas = Juego::get();

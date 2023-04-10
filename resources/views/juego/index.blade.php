@@ -28,4 +28,24 @@
         @csrf
         <button type="submit">Salir</button>            
     </form>
+
+    
+    <input type="button" value="enviar" onclick="recarga()">
+    <div id="mostrarMensaje"></div>
+   <script>
+
+        function recarga()
+        {
+            
+            $.ajax({
+                url: "Enviar.php",
+                type: "POST", 
+                success: function (mensaje) {
+                    $('#mostrarMensaje').html(mensaje);
+                },
+            })
+
+        }
+
+    </script>
 @endsection
