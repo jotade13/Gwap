@@ -22,6 +22,7 @@ return new class extends Migration
             $table->integer('puntaje2');
             $table->bigInteger('jugador3');
             $table->integer('puntaje3');
+            $table->string('juego_terminado');
             $table->timestamps();
         });
     }

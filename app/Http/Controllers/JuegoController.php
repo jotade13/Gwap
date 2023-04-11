@@ -14,7 +14,7 @@ class JuegoController extends Controller
         $idUsuario = Auth::id();
         foreach ($partidas as $partida) {
 
-            if ($partida->jugador1==$idUsuario) {
+            if ($partida->jugador1==$idUsuario&&$partida->juego_terminado=='no') {
 
                 return view('juego.partida',['partida'=>$partida]);
             }
@@ -28,7 +28,8 @@ class JuegoController extends Controller
             'jugador3' => 0,
             'puntaje1' => 0,
             'puntaje2' => 0,
-            'puntaje3' => 0
+            'puntaje3' => 0,
+            'juego_terminado' => 'no'
         ]);
         
         return view('juego.partida',['partida'=>$partida]);
@@ -58,13 +59,15 @@ class JuegoController extends Controller
     public function cargando(){
         $partidas = Juego::get();
         $idUsuario = Auth::id();
-        foreach ($partidas as $partida) {
-
-            if ($partida->jugador1==$idUsuario || $partida->jugador2==$idUsuario || $partida->jugador3==$idUsuario) {
-                
-                if ($partida->jugador1!=0 && $partida->jugador2!=0 && $partida->jugador3!=0){                 
+        foreach ($partidas as $partida)
+        {
+            if ($partida->jugador1==$idUsuario || $partida->jugador2==$idUsuario || $partida->jugador3==$idUsuario&&$partida->juego_terminado=='no') 
+            {
+                if ($partida->jugador1!=0 && $partida->jugador2!=0 && $partida->jugador3!=0)
+                {                 
                     return view('juego.juego',['partida'=>$partida]);              
-                }else{   
+                }else
+                {   
                     echo "<h1>".$partida->id."Cargando.....</h1>";
                 }
             }
