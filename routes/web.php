@@ -21,16 +21,14 @@ Route::get('/',[JuegoController::class,'index'])->middleware('auth')->name('prin
 Route::view('/registrar','auth.registrar')->name('registrar');
 Route::post('/registrar',[RegisteredUserController::class,'store']);
 
-Route::view('/juego/prueba','juego.partida')->name('prueba');
+Route::view('/juego/prueba','juego.partida')->name('prueba'); //pendiente a eliminar
 
 Route::view('/login','auth.login')->name('login');
 Route::post('/login',[AuthenticatedSessionController::class,'store']);
 Route::post('/logout',[AuthenticatedSessionController::class,'destroy'])->name('logout');
 
 Route::get('/juego/create',[JuegoController::class,'create'])->middleware('auth')->name('CrearJuego');
-
-Route::get('/juego/recargar',[JuegoController::class,'cargando'])->name('recargar');
-
+Route::get('/juego/comprobar',[JuegoController::class,'cargando'])->name('comprobar');
 Route::get('/juego/{partida}',[JuegoController::class,'agregarJugador'])->middleware('auth')->name('AgregarJugador');
 
 Route::get('/admin',[AdminController::class,'index'])->name('admin.principal')->middleware('role:admin');

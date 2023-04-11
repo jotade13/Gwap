@@ -6,10 +6,10 @@
     {{-- <input type="button" value="recargar" onclick="recarga()"> --}}
 
     <script>
-        function recarga()
+        function comprobar_jugadores_en_la_partida()
         {               
             $.ajax({     //comprueba si ya estan todos los jugadores para iniciar la partida
-                url: "{{ route('recargar') }}",
+                url: "{{ route('comprobar')}}",
                 type: "get", 
                 
                 success: function (mensaje) {
@@ -17,7 +17,7 @@
                 }
             });
         }
-        var comprobar = setInterval("recarga()",1000); 
+        var comprobar = setInterval("comprobar_jugadores_en_la_partida()",1000); 
         
     </script>
 
