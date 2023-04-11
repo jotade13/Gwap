@@ -2,10 +2,6 @@
 @section('Titulo','Partidas')
 @section('contenido')
     
-@if (!$band)
-    <h1>If</h1>
-@else
-    <h1>Else</h1>
     <div id="mostrarMensaje"></div>
     <input type="button" value="recargar" onclick="recarga()">
 
@@ -24,6 +20,5 @@
         // setInterval("recargar()",1000);
         
     </script>
-@endif
 
 @endsection
