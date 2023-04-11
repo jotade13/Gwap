@@ -1,36 +1,29 @@
-@extends('layouts.guest')
+@extends('layouts.app')
 @section('Titulo','Partidas')
 @section('contenido')
-    <h2>
-        Partida - {{ $partida->id }}
-    </h2>
-    @if ($partida->jugador1!=0 && $partida->jugador2!=0 && $partida->jugador3!=0)
-        <h1>Espacio para imagen</h1>
-        <input type="text">
-    @else
-        <h1>Cargando.....</h1>        
-    @endif
-    <form action="{{route('logout')}}" method="post">
-        @csrf
-        <button type="submit">Salir</button>            
-    </form>
-    {{-- <input type="button" value="enviar" onclick="recarga()">
+    
+@if (!$band)
+    <h1>If</h1>
+@else
+    <h1>Else</h1>
     <div id="mostrarMensaje"></div>
-   <script>
+    <input type="button" value="recargar" onclick="recarga()">
 
+    <script>
         function recarga()
-        {
-            
+        {            
             $.ajax({
-                url: "Enviar.php",
-                type: "POST", 
+                url: "{{ route('recargar') }}",
+                type: "get", 
+                
                 success: function (mensaje) {
                     $('#mostrarMensaje').html(mensaje);
-                },
-            })
-
+                }
+            });
         }
-
+        // setInterval("recargar()",1000);
+        
     </script>
-     --}}
+@endif
+
 @endsection
