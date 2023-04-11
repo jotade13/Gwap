@@ -32,18 +32,18 @@ class JuegoController extends Controller
             'juego_terminado' => 'no'
         ]);
         
-        return view('juego.partida',['partida'=>$partida]);
+        return to_route('partida',['partida'=>$partida]);
     }
     public function index(){
         $partidas = Juego::get();        
         return view('juego.principal',['partidas'=> $partidas]);
 
     }
-    public function agregarJugador(Juego $partida){
+    public function entrarPartida(Juego $partida){
         $idUsuario = Auth::id();
         if ($partida->jugador1==$idUsuario || $partida->jugador2==$idUsuario || $partida->jugador3==$idUsuario) {
 
-            return view('juego.partida',['partida'=>$partida],['band'=>true]);
+            return view('juego.partida',['partida'=>$partida]);
        }else{
 
            if ($partida->jugador2==0) {
@@ -53,14 +53,11 @@ class JuegoController extends Controller
                 $partida->jugador3=Auth::id();
                 $partida->save();
             }        
-            return view('juego.partida',['partida'=>$partida],['band'=>true]);
+            return view('juego.partida',['partida'=>$partida]);
         }
     }
-    public function cargando(){
-        $partidas = Juego::get();
+    public function cargando(Juego $partida){
         $idUsuario = Auth::id();
-        foreach ($partidas as $partida)
-        {
             if ($partida->jugador1==$idUsuario || $partida->jugador2==$idUsuario || $partida->jugador3==$idUsuario&&$partida->juego_terminado=='no') 
             {
                 if ($partida->jugador1!=0 && $partida->jugador2!=0 && $partida->jugador3!=0)
@@ -71,6 +68,5 @@ class JuegoController extends Controller
                     echo "<h1>".$partida->id."Cargando.....</h1>";
                 }
             }
-        }
     }
 }

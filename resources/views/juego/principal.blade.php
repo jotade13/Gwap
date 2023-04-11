@@ -9,7 +9,7 @@
         @if ($partida->jugador3==0)
             <div>
                 <h2>Partida - {{ $partida->id }}</h2> 
-                <a href="{{ route('AgregarJugador',$partida)}}">Unirme</a>
+                <a href="{{ route('partida',$partida)}}">Unirme</a>
             </div>
             
         @endif

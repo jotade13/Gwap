@@ -9,7 +9,7 @@
         function comprobar_jugadores_en_la_partida()
         {               
             $.ajax({     //comprueba si ya estan todos los jugadores para iniciar la partida
-                url: "{{ route('comprobar')}}",
+                url: "{{ route('comprobar',['partida'=>$partida])}}",
                 type: "get", 
                 
                 success: function (mensaje) {
