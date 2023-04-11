@@ -62,19 +62,12 @@ class JuegoController extends Controller
 
             if ($partida->jugador1==$idUsuario || $partida->jugador2==$idUsuario || $partida->jugador3==$idUsuario) {
                 
-                if ($partida->jugador1!=0 && $partida->jugador2!=0 && $partida->jugador3!=0){
-                    echo "<h1>Espacio para imagen</h1>";
-                    echo "<input type='text'>";
-                    return view('juego.juego');
-                    
-                    
-                }else{
-                    
+                if ($partida->jugador1!=0 && $partida->jugador2!=0 && $partida->jugador3!=0){                 
+                    return view('juego.juego',['partida'=>$partida]);              
+                }else{   
                     echo "<h1>".$partida->id."Cargando.....</h1>";
                 }
             }
         }
-       
     }
-
 }

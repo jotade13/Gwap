@@ -3,12 +3,12 @@
 @section('contenido')
     
     <div id="mostrarMensaje"></div>
-    <input type="button" value="recargar" onclick="recarga()">
+    {{-- <input type="button" value="recargar" onclick="recarga()"> --}}
 
     <script>
         function recarga()
-        {            
-            $.ajax({
+        {               
+            $.ajax({     //comprueba si ya estan todos los jugadores para iniciar la partida
                 url: "{{ route('recargar') }}",
                 type: "get", 
                 
@@ -17,7 +17,7 @@
                 }
             });
         }
-        // setInterval("recargar()",1000);
+        var comprobar = setInterval("recarga()",1000); 
         
     </script>
 
