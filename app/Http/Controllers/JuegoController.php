@@ -65,7 +65,7 @@ class JuegoController extends Controller
                     return view('juego.juego',['partida'=>$partida]);              
                 }else
                 {   
-                    echo "<h1>".$partida->id."Cargando.....</h1>";
+                    echo "<h1 class='text-3xl '>".$partida->id."->Cargando.....</h1>";
                 }
             }
     }
