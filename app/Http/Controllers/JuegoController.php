@@ -70,18 +70,6 @@ class JuegoController extends Controller
     }
     public function cargando(Juego $partida){
         $idUsuario = Auth::id();
-<<<<<<< HEAD
-            if ($partida->jugador1==$idUsuario || $partida->jugador2==$idUsuario || $partida->jugador3==$idUsuario&&$partida->juego_terminado=='no') 
-            {
-                if ($partida->jugador1!=0 && $partida->jugador2!=0 && $partida->jugador3!=0)
-                {                 
-                    return view('juego.juego',['partida'=>$partida]);              
-                }else
-                {   
-                    echo "<h1 class='text-3xl '>".$partida->id."->Cargando.....</h1>";
-                }
-
-=======
         if ($partida->jugador1==$idUsuario || $partida->jugador2==$idUsuario || $partida->jugador3==$idUsuario&&$partida->juego_terminado=='no') 
         {
             if ($partida->jugador1!=0 && $partida->jugador2!=0 && $partida->jugador3!=0)
@@ -95,10 +83,10 @@ class JuegoController extends Controller
                 return view('juego.juego',['partida'=>$partida]);              
             }else
             {   
-                echo "<h1>".$partida->id."Cargando.....</h1>";
->>>>>>> Jose
+                echo "<h1 class='text-3xl '>".$partida->id."->Cargando.....</h1>";
             }
         }
+    }   
     public function cambioImagen(Juego $partida)
     {
         for ($i=1;$i<4;$i++)
