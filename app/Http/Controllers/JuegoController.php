@@ -14,7 +14,7 @@ class JuegoController extends Controller
         $idUsuario = Auth::id();
         foreach ($partidas as $partida) {
 
-            if ($partida->jugador1==$idUsuario) {
+            if ($partida->jugador1==$idUsuario&&$partida->juego_terminado=='no') {
 
                 return view('juego.partida',['partida'=>$partida]);
             }
@@ -28,21 +28,22 @@ class JuegoController extends Controller
             'jugador3' => 0,
             'puntaje1' => 0,
             'puntaje2' => 0,
-            'puntaje3' => 0
+            'puntaje3' => 0,
+            'juego_terminado' => 'no'
         ]);
         
-        return view('juego.partida',['partida'=>$partida]);
+        return to_route('partida',['partida'=>$partida]);
     }
     public function index(){
         $partidas = Juego::get();        
         return view('juego.principal',['partidas'=> $partidas]);
 
     }
-    public function agregarJugador(Juego $partida){
+    public function entrarPartida(Juego $partida){
         $idUsuario = Auth::id();
         if ($partida->jugador1==$idUsuario || $partida->jugador2==$idUsuario || $partida->jugador3==$idUsuario) {
 
-            return view('juego.partida',['partida'=>$partida],['band'=>true]);
+            return view('juego.partida',['partida'=>$partida]);
        }else{
 
            if ($partida->jugador2==0) {
@@ -52,29 +53,20 @@ class JuegoController extends Controller
                 $partida->jugador3=Auth::id();
                 $partida->save();
             }        
-            return view('juego.partida',['partida'=>$partida],['band'=>true]);
+            return view('juego.partida',['partida'=>$partida]);
         }
     }
-    public function cargando(){
-        $partidas = Juego::get();
+    public function cargando(Juego $partida){
         $idUsuario = Auth::id();
-        foreach ($partidas as $partida) {
-
-            if ($partida->jugador1==$idUsuario || $partida->jugador2==$idUsuario || $partida->jugador3==$idUsuario) {
-                
-                if ($partida->jugador1!=0 && $partida->jugador2!=0 && $partida->jugador3!=0){
-                    echo "<h1>Espacio para imagen</h1>";
-                    echo "<input type='text'>";
-                    return view('juego.juego');
-                    
-                    
-                }else{
-                    
+            if ($partida->jugador1==$idUsuario || $partida->jugador2==$idUsuario || $partida->jugador3==$idUsuario&&$partida->juego_terminado=='no') 
+            {
+                if ($partida->jugador1!=0 && $partida->jugador2!=0 && $partida->jugador3!=0)
+                {                 
+                    return view('juego.juego',['partida'=>$partida]);              
+                }else
+                {   
                     echo "<h1>".$partida->id."Cargando.....</h1>";
                 }
             }
-        }
-       
     }
-
 }

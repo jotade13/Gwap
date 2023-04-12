@@ -8,6 +8,9 @@
 <body>
 
     <div class="nav">
+        <h1>
+            {{auth()->user()->nombre}}
+        </h1>
         <form action="{{route('logout')}}" method="post">
             @csrf
             <button type="submit">Salir</button>            
