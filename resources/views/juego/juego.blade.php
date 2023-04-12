@@ -1,13 +1,18 @@
-@extends('layouts.guest')
-@section('Titulo','Partidas')
-@section('contenido')
-    
-    <div class ="juego">
-        <h1>Espacio para imagen</h1>
-        <input type='text'>
-    </div>
-    <script>
-       clearInterval(comprobar);   //para la comprobacion de empezar la partida
-    </script>
 
-@endsection
+        <div id="imagen"></div>
+        <input type='text'>
+    <script>
+       clearInterval(comprobar);   //pausa la comprobacion de empezar la partida
+       function cambiar_imagen()
+        {               
+            $.ajax({     //cambia la imagen de la partida
+                url: "{{ route('cambioImagen',['partida'=>$partida])}}",
+                type: "get", 
+                
+                success: function (imagen) {
+                    $('#imagen').html(imagen);
+                }
+            });
+        }
+        var cambiarImagen = setInterval("cambiar_imagen()",1000); 
+    </script>

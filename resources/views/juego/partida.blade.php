@@ -2,7 +2,7 @@
 @section('Titulo','Partidas')
 @section('contenido')
     
-    <div id="mostrarMensaje"></div>
+    <div id="juego"></div>
     {{-- <input type="button" value="recargar" onclick="recarga()"> --}}
 
     <script>
@@ -12,8 +12,8 @@
                 url: "{{ route('comprobar',['partida'=>$partida])}}",
                 type: "get", 
                 
-                success: function (mensaje) {
-                    $('#mostrarMensaje').html(mensaje);
+                success: function (juego) {
+                    $('#juego').html(juego);
                 }
             });
         }
