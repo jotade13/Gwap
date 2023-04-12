@@ -6,7 +6,6 @@
         <div class="bg-blue-400 col-span-2 rounded h-96  flex items-center justify-center " id="mostrarMensaje"></div>
         <div> <h1 class="bg-blue-400 text-3xl text-center rounded h-96">Puntaje</h1></div>
     </div>
-
     <script>
         function comprobar_jugadores_en_la_partida()
         {               
@@ -14,8 +13,8 @@
                 url: "{{ route('comprobar',['partida'=>$partida])}}",
                 type: "get", 
                 
-                success: function (mensaje) {
-                    $('#mostrarMensaje').html(mensaje);
+                success: function (juego) {
+                    $('#juego').html(juego);
                 }
             });
         }

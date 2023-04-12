@@ -4,7 +4,7 @@
 
    
     @foreach ($fotos as $foto)
-    <img src="images/{{$foto->nombre}}" alt="{{$foto->id}}">    
+    <img src="storage/imagenes/{{$foto->nombre}}" alt="{{$foto->id}}">    
     @endforeach
     @foreach ($partidas as $partida)
     <p>{{$partida->id}}</p>

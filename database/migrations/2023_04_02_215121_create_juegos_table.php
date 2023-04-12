@@ -23,6 +23,8 @@ return new class extends Migration
             $table->bigInteger('jugador3');
             $table->integer('puntaje3');
             $table->string('juego_terminado');
+            $table->integer('imagen_jugando');
+            $table->integer('tiempo_imagen')->nullable();
             $table->timestamps();
         });
     }

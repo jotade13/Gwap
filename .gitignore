@@ -2,7 +2,6 @@
 /node_modules
 /public/build
 /public/hot
-/public/images
 /public/storage
 /storage/*.key
 /vendor
@@ -18,4 +17,4 @@ yarn-error.log
 /.fleet
 /.idea
 /.vscode
-
+package-lock.json
