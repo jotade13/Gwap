@@ -29,8 +29,10 @@ Route::post('/logout',[AuthenticatedSessionController::class,'destroy'])->name('
 
 Route::get('/juego/create',[JuegoController::class,'create'])->middleware('auth')->name('CrearJuego');
 Route::get('/juego/comprobar/{partida}',[JuegoController::class,'cargando'])->name('comprobar');
+Route::get('/juego/enviar/{partida}',[JuegoController::class,'enviarCaracteristica'])->name('enviarCaracteristica');
 Route::get('/juego/{partida}',[JuegoController::class,'entrarPartida'])->middleware('auth')->name('partida');
 Route::get('/juego/cambio/{partida}',[JuegoController::class,'cambioImagen'])->name('cambioImagen');
+Route::get('/juego/mostrar/{partida}',[JuegoController::class,'mostrarCaracteristicas'])->name('mostrarCaracteristicas');
 
 
 Route::get('/admin',[AdminController::class,'index'])->name('admin.principal')->middleware('role:admin');
