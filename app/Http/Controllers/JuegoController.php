@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Juego;
 use App\Models\Foto;
+use App\Models\Caracteristica;
 
 class JuegoController extends Controller
 {
@@ -72,9 +73,13 @@ class JuegoController extends Controller
         if ($partida->jugador1==$idUsuario || $partida->jugador2==$idUsuario || $partida->jugador3==$idUsuario&&$partida->juego_terminado=='no') 
         {
             if ($partida->jugador1!=0 && $partida->jugador2!=0 && $partida->jugador3!=0)
-            {    
-                $partida->tiempo_imagen = time();
-                $partida->save();
+            {
+                if($partida->imagen_jugando==0)
+                {
+                    $partida->tiempo_imagen = time();
+                    $partida->save();
+                }   
+                
                 return view('juego.juego',['partida'=>$partida]);              
             }else
             {   
@@ -88,16 +93,33 @@ class JuegoController extends Controller
         {
             if($partida->tiempo_imagen+(($i-1)*60)<time()&&time()<$partida->tiempo_imagen+($i*60))
             { 
-                
-                $partida->imagen_jugando=$i;
                 $partida->save();
                 $aux = "imagen".$i;
                 $imagenes = Foto::get();
                 $imagen[$i] = $imagenes->find($partida->$aux);
                 $nombreImag = $imagen[$i]->nombre;
+                $partida->imagen_jugando=$imagen[$i]->id;
                 echo  "<img src='../storage/imagenes/".$nombreImag."'
                         alt='imagen del juego'>";
             }
+        }
+    }
+    public function enviarCaracteristica(Juego $partida, Request $request)
+    {
+      // return $request->caracteristica;
+       $varImagen = "imagen".$partida->imagen_jugando;
+       $caracteristica=Caracteristica::create([
+        'texto' => $request->caracteristica,
+        'id_juego' => $partida->id,
+        'id_usuario' => auth::id(),
+        'id_imagen' => $partida->imagen_jugando
+    ]);
+    }
+    public function mostrarCaracteristicas(Juego $partida)
+    {   
+        $caracteristica = Caracteristica::where('id_juego',$partida->id)->get();
+        foreach ($caracteristica as $car ) {
+            echo "".$car->texto."<br>";
         }
     }
 

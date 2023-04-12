@@ -5,7 +5,7 @@
     <div id="juego"></div>
     {{-- <input type="button" value="recargar" onclick="recarga()"> --}}
 
-    <script>
+    <script type="text/javascript">
         function comprobar_jugadores_en_la_partida()
         {               
             $.ajax({     //comprueba si ya estan todos los jugadores para iniciar la partida
@@ -17,8 +17,7 @@
                 }
             });
         }
-        var comprobar = setInterval("comprobar_jugadores_en_la_partida()",1000); 
-        
+        var comprobar = setInterval("comprobar_jugadores_en_la_partida()",1000);   
     </script>
 
 @endsection
