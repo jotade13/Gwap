@@ -1,6 +1,9 @@
     <div class="grid grid-cols-3 gap-3 h-5/6 ">
         <div class="h-5/6 bg-slate-700 col-span-2 mt-3 ml-3 rounded-md flex items-center justify-center " id="imagen"> </div>
-        <div class="h-5/6 bg-white mt-3 mr-3 rounded-md " id="caracteristicas"></div>
+        <div class="h-5/6 bg-white mt-3 mr-3 rounded-md overflow-auto">
+            <h1 class="text-xl sm:text-2xl text-center">Palabras</h1>
+            <div class="" id="caracteristicas"> </div>
+        </div>
     </div>
     <div class="grid grid-cols-3 gap-3">
         <div class="col-span-2 ml-2">            

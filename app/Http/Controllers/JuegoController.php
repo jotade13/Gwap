@@ -125,19 +125,18 @@ class JuegoController extends Controller
     {   
         $caracteristica = Caracteristica::where('id_juego',$partida->id)->where('id_usuario',auth::id())->get();
         foreach ($caracteristica as $car ) {
-            echo "".$car->texto."<br>";
+            echo "<h1 class='w-full ml-2 text-xl '>".$car->texto."</h1>";
         }
     }
     public function puntaje(Juego $partida)
     {
         $jugador1 = User::find($partida->jugador1);
-        echo "<br>".$jugador1->usuario.": ".$partida->puntaje1."<br>";
+        echo "<h1 class='ml-2 text-xl'>".$jugador1->usuario.": ".$partida->puntaje1."</h1>";
         $jugador2 = User::find($partida->jugador2);
-        echo "".$jugador2->usuario.": ".$partida->puntaje2."<br>";
+        echo "<h1 class='ml-2 text-xl'>".$jugador2->usuario.": ".$partida->puntaje2."</h1>";
         $jugador3 = User::find($partida->jugador3);
-        echo "".$jugador3->usuario.": ".$partida->puntaje3;
+        echo "<h1 class='ml-2 text-xl'>".$jugador3->usuario.": ".$partida->puntaje3."</h1>";
     }
-
 
     public function arregloAleatoriode3Id($arr) 
     {       //arreglo aleatorio que recibe un arreglo y devuelve un arreglo de 3 posiciones con numeros aleatorios y que no se repiten

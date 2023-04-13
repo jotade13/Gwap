@@ -4,7 +4,10 @@
 
     <div class="grid grid-cols-3 gap-3 sm:gap-6 m-4 h-screen">        
         <div class="bg-blue-400 col-span-2 rounded h-3/4 " id="juego"></div>
-        <div> <h1 class="bg-blue-400 text-3xl text-center rounded h-3/4">Puntaje</h1></div>
+        <div class="bg-blue-400 rounded h-3/4"> 
+            <h1 class="text-3xl text-center" >Puntaje</h1>
+            <div id="puntaje"></div>
+        </div>
     </div>  
 
     <script type="text/javascript">
