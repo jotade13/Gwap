@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Juego;
 use App\Models\Foto;
 use App\Models\Caracteristica;
+use App\Models\User;
 
 class JuegoController extends Controller
 {
@@ -118,13 +119,23 @@ class JuegoController extends Controller
         'id_usuario' => auth::id(),
         'id_imagen' => $partida->imagen_jugando
     ]);
+        Caracteristica::where('texto',$caracteristica->texto)->where('id_usuario','!=',$caracteristica->id_usuario);
     }
     public function mostrarCaracteristicas(Juego $partida)
     {   
-        $caracteristica = Caracteristica::where('id_juego',$partida->id)->get();
+        $caracteristica = Caracteristica::where('id_juego',$partida->id)->where('id_usuario',auth::id())->get();
         foreach ($caracteristica as $car ) {
             echo "".$car->texto."<br>";
         }
+    }
+    public function puntaje(Juego $partida)
+    {
+        $jugador1 = User::find($partida->jugador1);
+        echo "<br>".$jugador1->usuario.": ".$partida->puntaje1."<br>";
+        $jugador2 = User::find($partida->jugador2);
+        echo "".$jugador2->usuario.": ".$partida->puntaje2."<br>";
+        $jugador3 = User::find($partida->jugador3);
+        echo "".$jugador3->usuario.": ".$partida->puntaje3;
     }
 
 

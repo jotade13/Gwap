@@ -33,6 +33,7 @@ Route::get('/juego/enviar/{partida}',[JuegoController::class,'enviarCaracteristi
 Route::get('/juego/{partida}',[JuegoController::class,'entrarPartida'])->middleware('auth')->name('partida');
 Route::get('/juego/cambio/{partida}',[JuegoController::class,'cambioImagen'])->name('cambioImagen');
 Route::get('/juego/mostrar/{partida}',[JuegoController::class,'mostrarCaracteristicas'])->name('mostrarCaracteristicas');
+Route::get('/juego/puntaje/{partida}',[JuegoController::class,'puntaje'])->name('puntaje');
 
 
 Route::get('/admin',[AdminController::class,'index'])->name('admin.principal')->middleware('role:admin');

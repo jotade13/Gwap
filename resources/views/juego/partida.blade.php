@@ -20,6 +20,18 @@
                 }
             });
         }
+        function actualizar_puntaje()
+        {
+            $.ajax({    
+                url: "{{ route('puntaje',['partida'=>$partida])}}",
+                type: "get", 
+                
+                success: function (puntaje) {
+                    $('#puntaje').html(puntaje);
+                }
+            });
+        }
+        var actualizarPuntaje = setInterval("actualizar_puntaje()",1000)
         var comprobar = setInterval("comprobar_jugadores_en_la_partida()",1000);   
     </script>
 
