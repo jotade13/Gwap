@@ -83,7 +83,9 @@ class JuegoController extends Controller
                 return view('juego.juego',['partida'=>$partida]);              
             }else
             {   
-                echo "<h1 class='text-3xl'>".$partida->id."Cargando.....</h1>";
+                echo "<div class='flex justify-center items-center'>
+                <h1 class='text-3xl'>".$partida->id."Cargando.....</h1>
+                </div>";
             }
         }
     }
@@ -100,7 +102,7 @@ class JuegoController extends Controller
                 $nombreImag = $imagen[$i]->nombre;
                 $partida->imagen_jugando=$imagen[$i]->id;
                 $partida->save();
-                echo  "<img src='../storage/imagenes/".$nombreImag."'
+                echo  "<img class='h-5/6 w-5/6 ' src='../storage/imagenes/".$nombreImag."'
                         alt='imagen del juego'>";
 
             }

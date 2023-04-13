@@ -1,9 +1,16 @@
-
-        <div id="imagen"></div>
-        <input type='text' id="escribir">
-        <button onclick="enviar_caracteristica()">enviar</button>
+    <div class="grid grid-cols-3 gap-3 h-5/6 ">
+        <div class="h-5/6 bg-slate-700 col-span-2 mt-3 ml-3 rounded-md flex items-center justify-center " id="imagen"> </div>
+        <div class="h-5/6 bg-white mt-3 mr-3 rounded-md " id="caracteristicas"></div>
+    </div>
+    <div class="grid grid-cols-3 gap-3">
+        <div class="col-span-2 ml-2">            
+            <input type='text' id="escribir" class=" text-black-200 py-1.5 rounded-lg w-full border-2 border-gray-500">
+        </div>
+        <div class=" mr-3 bg-red-700 rounded-lg">
+            <button class="w-full ml-auto my-0.5  py-1 text-white" onclick="enviar_caracteristica()">ENVIAR</button>
+        </div>
+    </div>
         <div id="hide"></div>
-        <div id="caracteristicas"></div>
     <script>
        clearInterval(comprobar);   //pausa la comprobacion de empezar la partida
        function cambiar_imagen()

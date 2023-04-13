@@ -5,7 +5,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
     @vite(['resources/css/app.css'])
 </head>
-<body class="bg-gradient-to-r from-sky-700 to-indigo-800">
+<body class="bg-gradient-to-r from-sky-700 to-indigo-800 ">
 
     <div class="flex flex-wrap justify-between bg-slate-800 rounded-lg p-2">
         <div class="pl-4">
