@@ -111,15 +111,56 @@ class JuegoController extends Controller
     }
     public function enviarCaracteristica(Juego $partida, Request $request)
     {
-      // return $request->caracteristica;
-       $varImagen = "imagen".$partida->imagen_jugando;
-       $caracteristica=Caracteristica::create([
-        'texto' => $request->caracteristica,
-        'id_juego' => $partida->id,
-        'id_usuario' => auth::id(),
-        'id_imagen' => $partida->imagen_jugando
-    ]);
-        Caracteristica::where('texto',$caracteristica->texto)->where('id_usuario','!=',$caracteristica->id_usuario);
+       $request->caracteristica;
+       $caract = Caracteristica::where('texto',$request->caracteristica)->
+       where('id_juego',$partida->id)->where('id_usuario',auth::id())->
+       where('id_imagen',$partida->imagen_jugando)->get();
+       if($caract->isEmpty())
+       {
+            $varImagen = "imagen".$partida->imagen_jugando;
+            $caracteristica=Caracteristica::create
+            ([
+                'texto' => $request->caracteristica,
+                'id_juego' => $partida->id,
+                'id_usuario' => auth::id(),
+                'id_imagen' => $partida->imagen_jugando,
+                'coincidencias' => 0
+            ]);
+
+            $caracteriticasIguales = Caracteristica::where('texto',$caracteristica->texto)
+            ->where('id_juego',$caracteristica->id_juego)->where('id_imagen',$caracteristica->id_imagen)->get();
+            
+            $cantCaractIgual = $caracteriticasIguales->count();
+            if($cantCaractIgual==3)
+            {
+                foreach ($caracteriticasIguales as $car)
+                {
+                    $car->coincidencias = 2;
+                    $car->save();
+                }
+            }
+            if($cantCaractIgual==2)
+            {
+                foreach ($caracteriticasIguales as $car) 
+                {
+                    if($car->id_usuario==$partida->jugador1)
+                    {
+                        $car->coincidencias = 1;
+                        $car->save();
+                    }
+                    if($car->id_usuario==$partida->jugador2)
+                    {
+                        $car->coincidencias = 1;
+                        $car->save();
+                    }
+                    if($car->id_usuario==$partida->jugador3)
+                    {
+                        $car->coincidencias = 1;
+                        $car->save();
+                    }
+                }
+            }
+       } 
     }
     public function mostrarCaracteristicas(Juego $partida)
     {   

@@ -17,6 +17,7 @@ return new class extends Migration
             $table->bigInteger('id_imagen');
             $table->bigInteger('id_usuario');
             $table->string('texto');
+            $table->integer('coincidencias');
             $table->timestamps();
         });
     }
