@@ -17,16 +17,20 @@
                 }
             });
         }
-        function teclado(e){
-            if(e.which==13)
+        document.addEventListener("keydown", function(event)
+        {
+            if (event.code === "Enter") 
             {
                 enviar_caracteristica();
+                
             }
-        }
+        });
         function enviar_caracteristica()
         {      
             var caracteristica = $("#escribir").val();
-            var parametros = 
+            if(caracteristica!="")
+            {
+                var parametros = 
             {           
                 "caracteristica" : caracteristica
             };         
@@ -42,6 +46,7 @@
                 }
             });
             mostrar_caracteristicas();
+            }
         }
         var cambiarImagen = setInterval("cambiar_imagen()",1000);
         function mostrar_caracteristicas()
