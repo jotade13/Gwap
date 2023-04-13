@@ -32,7 +32,6 @@
             if (event.code === "Enter") 
             {
                 enviar_caracteristica();
-                
             }
         });
         function enviar_caracteristica()
@@ -41,24 +40,24 @@
             if(caracteristica!="")
             {
                 var parametros = 
-            {           
-                "caracteristica" : caracteristica
-            };         
-            $.ajax({
-                
-                data: parametros,
-                url: "{{ route('enviarCaracteristica',['partida'=>$partida])}}",
-                type: "get",
+                {           
+                    "caracteristica" : caracteristica
+                };         
+                $.ajax({
+                    
+                    data: parametros,
+                    url: "{{ route('enviarCaracteristica',['partida'=>$partida])}}",
+                    type: "get",
 
-                success: function (caract) {
-                    $('#hide').html(caract);
-                    $('#escribir').val('');
-                }
-            });
-            mostrar_caracteristicas();
+                    success: function (caract) {
+                        $('#hide').html(caract);
+                        $('#escribir').val('');
+                        mostrar_caracteristicas();
+                    }
+                }); 
             }
         }
-        var cambiarImagen = setInterval("cambiar_imagen()",1000);
+        var cambiarImagen = setInterval("cambiar_imagen()",500);
         function mostrar_caracteristicas()
         {              
             $.ajax({
@@ -71,5 +70,4 @@
                 }
             });
         }
-        var mostrarCaracteristicas = setInterval("mostrar_caracteristicas()",1000)
     </script>

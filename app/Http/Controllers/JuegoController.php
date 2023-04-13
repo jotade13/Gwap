@@ -24,13 +24,6 @@ class JuegoController extends Controller
         }
         $arreglo3Imagenes = $this->arregloAleatoriode3Id($arregloImagenes);
         
-        /*foreach ($partidas as $partida) {
-
-            if ($partida->jugador1==$idUsuario&&$partida->juego_terminado=='no') {
-
-                return view('juego.partida',['partida'=>$partida]);
-            }
-        }*/
         $partida=Juego::create([
             'imagen1' => $arreglo3Imagenes[0],
             'imagen2' => $arreglo3Imagenes[1],
@@ -92,9 +85,11 @@ class JuegoController extends Controller
     }
     public function cambioImagen(Juego $partida)
     {
+        $tiempoImagenSegundos = 10;
+        $bandTermino=true;
         for ($i=1;$i<4;$i++)
         {
-            if($partida->tiempo_imagen+(($i-1)*60)<time()&&time()<$partida->tiempo_imagen+($i*60))
+            if(($partida->tiempo_imagen+($i-1)*$tiempoImagenSegundos)<=time()&&time()<($partida->tiempo_imagen+$i*$tiempoImagenSegundos))
             { 
                 
                 $aux = "imagen".$i;
@@ -105,8 +100,81 @@ class JuegoController extends Controller
                 $partida->save();
                 echo  "<img class='h-5/6 w-5/6 ' src='../storage/imagenes/".$nombreImag."'
                         alt='imagen del juego'>";
-
+                $bandTermino=false;
             }
+        }
+        $this->termino($bandTermino,$partida);
+    }
+    public function termino($bandTermino,Juego $partida)
+    {
+        if($bandTermino&&$partida->juego_terminado=='no')
+        {
+            $partida->juego_terminado='si';
+            $partida->save(); 
+            echo "<h1>Juego  Terminado </h1>";
+
+            $this->actualizarEstadisticas($partida);
+        }
+    }
+    public function actualizarEstadisticas(Juego $partida)
+    {
+        $jugador1 = User::find($partida->jugador1);
+        $jugador1->puntajeAcum = $jugador1->puntajeAcum + $partida->puntaje1;
+        if($partida->puntaje1>$jugador1->puntaje_maximo_juego)
+        {
+            $jugador1->puntaje_maximo_juego = $partida->puntaje1;
+        }
+        if($partida->puntaje1>=$partida->puntaje2&&$partida->puntaje1>=$partida->puntaje3)
+        {
+            $jugador1->veces_con_mas_puntos++;
+        }
+        $jugador1->save();
+        
+        $jugador2 = User::find($partida->jugador2);
+        $jugador2->puntajeAcum = $jugador2->puntajeAcum + $partida->puntaje2;
+        if($partida->puntaje2>$jugador2->puntaje_maximo_juego)
+        {
+            $jugador2->puntaje_maximo_juego = $partida->puntaje2;
+        }
+        if($partida->puntaje2>=$partida->puntaje1&&$partida->puntaje2>=$partida->puntaje3)
+        {
+            $jugador2->veces_con_mas_puntos++;
+        }
+        $jugador2->save();
+
+        $jugador3 = User::find($partida->jugador3);
+        $jugador3->puntajeAcum = $jugador3->puntajeAcum + $partida->puntaje3;
+        if($partida->puntaje3>$jugador3->puntaje_maximo_juego)
+        {
+            $jugador3->puntaje_maximo_juego = $partida->puntaje3;
+        }
+        if($partida->puntaje3>=$partida->puntaje1&&$partida->puntaje3>=$partida->puntaje2)
+        {
+            $jugador3->veces_con_mas_puntos++;
+        }
+        $jugador3->save();
+
+        $this->contarCaracteristicasPartida($partida);
+    }
+    public function contarCaracteristicasPartida(Juego $partida)
+    {
+        for($i=1;$i<3;$i++)
+        {
+            $caracteristicas = Caracteristica::where('id_juego',$partida->id)->
+                                where('coincidencias',$i)->get();
+            foreach ($caracteristicas as $car )
+            {
+                $usuario = User::find($car->id_usuario);
+                if($i==1)
+                {
+                    $usuario->coincidenciasx2++;
+                    $usuario->save();
+                }else
+                {
+                    $usuario->coincidenciasx3++;
+                    $usuario->save();
+                }
+            }                  
         }
     }
     public function enviarCaracteristica(Juego $partida, Request $request)
@@ -115,7 +183,7 @@ class JuegoController extends Controller
        $caract = Caracteristica::where('texto',$request->caracteristica)->
        where('id_juego',$partida->id)->where('id_usuario',auth::id())->
        where('id_imagen',$partida->imagen_jugando)->get();
-       if($caract->isEmpty())
+       if($caract->isEmpty()&&$partida->juego_terminado=="no")
        {
             $varImagen = "imagen".$partida->imagen_jugando;
             $caracteristica=Caracteristica::create
@@ -129,38 +197,61 @@ class JuegoController extends Controller
 
             $caracteriticasIguales = Caracteristica::where('texto',$caracteristica->texto)
             ->where('id_juego',$caracteristica->id_juego)->where('id_imagen',$caracteristica->id_imagen)->get();
+
+            $cantCaractIgual = $this->buscarCoincidencias($caracteriticasIguales);
             
-            $cantCaractIgual = $caracteriticasIguales->count();
-            if($cantCaractIgual==3)
+            if($cantCaractIgual>1)
             {
-                foreach ($caracteriticasIguales as $car)
-                {
-                    $car->coincidencias = 2;
-                    $car->save();
-                }
-            }
-            if($cantCaractIgual==2)
-            {
-                foreach ($caracteriticasIguales as $car) 
-                {
+                foreach ($caracteriticasIguales as $car) {
                     if($car->id_usuario==$partida->jugador1)
                     {
-                        $car->coincidencias = 1;
-                        $car->save();
+                        if($partida->jugador1!=auth::id()&&$car->coincidencias==2)
+                        {
+                            $partida->puntaje1=$partida->puntaje1-100;
+                        }
+                        $partida->puntaje1=$partida->puntaje1+100*$car->coincidencias;
+                        $partida->save();
                     }
                     if($car->id_usuario==$partida->jugador2)
                     {
-                        $car->coincidencias = 1;
-                        $car->save();
+                        if($partida->jugador2!=auth::id()&&$car->coincidencias==2)
+                        {
+                            $partida->puntaje2=$partida->puntaje2-100;
+                        }
+                        $partida->puntaje2=$partida->puntaje2+100*$car->coincidencias;
+                        $partida->save();
                     }
                     if($car->id_usuario==$partida->jugador3)
                     {
-                        $car->coincidencias = 1;
-                        $car->save();
+                        if($partida->jugador3!=auth::id()&&$car->coincidencias==2)
+                        {
+                            $partida->puntaje3=$partida->puntaje3-100;
+                        }
+                        $partida->puntaje3=$partida->puntaje3+100*$car->coincidencias;
+                        $partida->save();
                     }
                 }
             }
-       } 
+       }
+    }
+    public function  buscarCoincidencias($caracteriticasIguales)
+    {
+        $cantCaractIgual = $caracteriticasIguales->count();
+        
+            foreach ($caracteriticasIguales as $car)
+            {
+                if($cantCaractIgual==3)
+                {
+                    $car->coincidencias = 2;            
+                    $car->save();
+                }   
+                if($cantCaractIgual==2)
+                {
+                    $car->coincidencias = 1;            
+                    $car->save();
+                }  
+            }
+        return $cantCaractIgual;
     }
     public function mostrarCaracteristicas(Juego $partida)
     {   
