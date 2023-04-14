@@ -15,7 +15,7 @@
                     <h2 id='Usuario' class="text-red-50 ">Nombre</h2>
                 </div>
                 <div class="w-72">
-                    <input type="text" name="usuario" placeholder="Escribe tu nombre...." class="w-full text-gray-200 pb-1 bg-slate-900 border-b-2 border-gray-500">
+                    <input type="text" name="usuario" placeholder="Escribe tu usuario...." class="w-full text-gray-200 pb-1 bg-slate-900 border-b-2 border-gray-500">
                 </div>
                 @error('usuario')
                 <small>{{$message}}</small>
