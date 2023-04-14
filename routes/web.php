@@ -42,3 +42,6 @@ Route::get('/admin/{partida}',[AdminController::class,'mostrarCaracteristicas'])
 
 
 
+Route::view('/buscador','buscador')->name('buscador');
+Route::get('/buscador/buscar',[FotoController::class,'buscar'])->name('buscar');
+
