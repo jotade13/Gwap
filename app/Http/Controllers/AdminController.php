@@ -34,7 +34,7 @@ class AdminController extends Controller
             }
         }
 
-        return view('admin.admin',['partidas'=> $part],['fotos'=> $Fotos]);
+        return view('Admin.Admin',['partidas'=> $part],['fotos'=> $Fotos]);
     }
     public function mostrarCaracteristicas(Juego $partida){
 
