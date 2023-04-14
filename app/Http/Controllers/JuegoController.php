@@ -64,6 +64,42 @@ class JuegoController extends Controller
     }
     public function cargando(Juego $partida){
         $idUsuario = Auth::id();
+
+        if($partida->jugador1 == $idUsuario){
+            $jug1=User::find($partida->jugador1);
+            $jug2=User::find($partida->jugador2);
+            $jug3=User::find($partida->jugador3);
+        }
+        if($partida->jugador2 == $idUsuario){
+            $jug1=User::find($partida->jugador2);
+            $jug2=User::find($partida->jugador1);
+            $jug3=User::find($partida->jugador3);
+        }
+        if($partida->jugador3 == $idUsuario){
+            $jug1=User::find($partida->jugador3);
+            $jug2=User::find($partida->jugador1);
+            $jug3=User::find($partida->jugador2);
+        }
+       
+        $jugadores = array(
+            "jugador1" => $jug1,
+            "jugador2" => $jug2,
+            "jugador3" => $jug3            
+        );
+        $caracteristicas = Caracteristica::get();
+        $i=0;
+        $caract=Array();        
+        foreach ($caracteristicas as $caracteristica) {
+            if($caracteristica->id_juego == $partida->id){
+                $caract[$i]=$caracteristica;
+            }
+            $i++;
+        }
+
+        if ($partida->juego_terminado=="si") {    
+            // return $caracteristicas;        
+            return view('juego.juegoTerminado',['jugadores'=>$jugadores],['caracteristicas'=>$caract]);
+        }
         if ($partida->jugador1==$idUsuario || $partida->jugador2==$idUsuario || $partida->jugador3==$idUsuario&&$partida->juego_terminado=='no') 
         {
             if ($partida->jugador1!=0 && $partida->jugador2!=0 && $partida->jugador3!=0)
@@ -77,7 +113,7 @@ class JuegoController extends Controller
                 return view('juego.juego',['partida'=>$partida]);              
             }else
             {   
-                echo "<div class='flex justify-center items-center'>
+                echo "<div class='h-full flex justify-center items-center'>
                 <h1 class='text-3xl'>".$partida->id."Cargando.....</h1>
                 </div>";
             }
@@ -111,10 +147,16 @@ class JuegoController extends Controller
         {
             $partida->juego_terminado='si';
             $partida->save(); 
-            echo "<h1>Juego  Terminado </h1>";
+           
 
             $this->actualizarEstadisticas($partida);
         }
+        if($partida->juego_terminado=='si'){
+            echo "<script> clearInterval(cambiarImagen)</script>";
+            echo "<script> comprobar = setInterval('comprobar_jugadores_en_la_partida()',1000);</script>";
+            echo "<h1>Juego  Terminado </h1>";
+        }
+        //  echo "<h1>Juego  Terminado </h1>";
     }
     public function actualizarEstadisticas(Juego $partida)
     {
