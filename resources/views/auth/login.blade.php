@@ -1,7 +1,11 @@
 @extends('layouts.guest')
 @section('titulo','Login')
 @section('contenido')
-    <div class="rounded-lg bg-slate-900 w-80 h-96 ml-32 mt-32">
+
+    <div class=" ml-32 mt-32 px-2 w-32 text-white border-2 border-slate-800 hover:border-slate-400 hover:bg-slate-700 rounded-lg">
+        <a class=" w-full p-2 text-white" href="{{route('buscador')}}">Buscador</a>
+    </div>
+    <div class="rounded-lg bg-slate-900 w-80 h-96 ml-32 mt-1">
         <div class="h-96 flex flex-col items-center " >
 
             <h1 class="font-serif text-3xl  text-center text-red-600 mt-6 mb-4">Ingresar</h1>

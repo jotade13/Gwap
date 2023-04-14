@@ -77,14 +77,13 @@ class FotoController extends Controller
                                          //ordena elementos de forma descendente
         if(empty($unico))
         {
-            echo "No se encontró ninguna imagen en la busqueda";
+            echo "<h1 class='text-white ml-3'>No se encontró ninguna imagen en la busqueda</h1>";
         }else
         {
             foreach ($unico as $img => $valor)
             {  
-                echo "<br>".$img;
                 $foto = foto::find($img);
-                echo "<img src='storage/imagenes/".$foto->nombre."' alt='imagen ".$foto->id."'>";
+                echo "<img class='mt-3 ml-3 mb-1 pr-6' src='storage/imagenes/".$foto->nombre."' alt='imagen ".$foto->id."'>";
             }   
         }                                             
     }
