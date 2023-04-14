@@ -39,3 +39,6 @@ Route::get('/juego/puntaje/{partida}',[JuegoController::class,'puntaje'])->name(
 Route::get('/admin',[AdminController::class,'index'])->name('admin.principal')->middleware('role:admin');
 Route::post('/admin',[FotoController::class,'store'])->name('admin.subirImagen')->middleware('role:admin');
 
+Route::view('/buscador','buscador')->name('buscador');
+Route::get('/buscador/buscar',[FotoController::class,'buscar'])->name('buscar');
+
