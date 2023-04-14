@@ -28,8 +28,40 @@ class FotoController extends Controller
     }
 
     public function buscar(Request $request)
-    {   
-        $caracteristica = Caracteristica::where('texto','Like', $request->busqueda."%")
+    {  
+        $busqueda = $request->busqueda;
+
+        $buscar = explode(" ", $busqueda);
+        $imagenes=[];
+
+        foreach ($buscar as $bus)
+        {
+            $caracteristica = Caracteristica::where('texto','Like',"%".$bus."%")
+            ->where('coincidencias','>',0)->get();
+
+            $imagenTemporal=[];
+            $band=false;
+           
+            foreach ($caracteristica as $car)
+            {
+                if(empty($imagenes)or$band)
+                {
+                    array_push($imagenes,$car->id_imagen);
+                    $band = true;
+                }
+                else
+                {
+                    array_push($imagenTemporal,$car->id_imagen);
+                }
+            }
+            if(!empty($imagenTemporal))
+            {
+                $resultado = array_intersect($imagenes,$imagenTemporal);
+                $imagenes = $resultado;
+            }
+        }
+
+        /*$caracteristica = Caracteristica::where('texto','Like',"%".$request->busqueda."%")
         ->where('coincidencias','>',0)->get();
 
         $imagenes=[];
@@ -37,22 +69,23 @@ class FotoController extends Controller
         {    
            array_push($imagenes,$car->id_imagen);
         }
+        */
         $frecuencia = array_count_values($imagenes);
-        //return $frecuencia;
         arsort($frecuencia);
-
-      //  return $frecuencia;
         $imagen = array_intersect_key($frecuencia,$imagenes);
-
-
-        $unico = array_unique($imagen);
-            
-                                           //ordena elementos de forma descendente
-        foreach ($unico as $img => $valor)
-        {  
-            echo "<br>".$img;
-            $foto = foto::find($img);
-            echo "<img src='storage/imagenes/".$foto->nombre."' alt='imagen ".$foto->id."'>";
-        }                 
+        $unico = array_unique($imagen); 
+                                         //ordena elementos de forma descendente
+        if(empty($unico))
+        {
+            echo "No se encontró ninguna imagen en la busqueda";
+        }else
+        {
+            foreach ($unico as $img => $valor)
+            {  
+                echo "<br>".$img;
+                $foto = foto::find($img);
+                echo "<img src='storage/imagenes/".$foto->nombre."' alt='imagen ".$foto->id."'>";
+            }   
+        }                                             
     }
 }
