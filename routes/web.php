@@ -40,8 +40,6 @@ Route::get('/admin',[AdminController::class,'index'])->name('admin.principal')->
 Route::post('/admin',[FotoController::class,'store'])->name('admin.subirImagen')->middleware('role:admin');
 Route::get('/admin/{partida}',[AdminController::class,'mostrarCaracteristicas'])->name('admin.mostrarCaracteriticas')->middleware('role:admin');
 
-
-
-Route::view('/buscador','buscador')->name('buscador');
+Route::view('/buscador','buscador.buscador')->name('buscador');
 Route::get('/buscador/buscar',[FotoController::class,'buscar'])->name('buscar');
 
