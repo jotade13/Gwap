@@ -17,6 +17,7 @@ class JuegoController extends Controller
         $idUsuario = Auth::id();
         $imagenes = Foto::get();
         $i=0;
+        $arregloImagenes = Array();
         foreach ($imagenes as $imagen)
         {
             $arregloImagenes[$i]=$imagen->id;
