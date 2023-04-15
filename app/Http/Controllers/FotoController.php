@@ -7,6 +7,8 @@ use Illuminate\Http\UploadedFile;
 use App\Models\Foto;
 use App\Models\Caracteristica;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
+
 
 
 class FotoController extends Controller
