@@ -20,7 +20,7 @@ class FotoController extends Controller
         ]);
 
         $nombreImagen = time().'.'.$request->file('imagen')->extension();
-        $request->file('imagen')->move(public_path('imagenes'),$nombreImagen);
+        $request->file('imagen')->move(public_path(),$nombreImagen);
 
         Foto::create([
             'nombre' => $nombreImagen,
