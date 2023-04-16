@@ -13,33 +13,38 @@ class JuegoController extends Controller
 {
     public function create()
     {
-        $partidas = Juego::get();
         $idUsuario = Auth::id();
         $imagenes = Foto::get();
-        $i=0;
-        $arregloImagenes = Array();
-        foreach ($imagenes as $imagen)
+        $cantImagenes = $imagenes->count();
+        if($cantImagenes>2)
         {
-            $arregloImagenes[$i]=$imagen->id;
-            $i++;
+            $i=0;
+            $arregloImagenes = Array();
+            foreach ($imagenes as $imagen)
+            {
+                $arregloImagenes[$i]=$imagen->id;
+                $i++;
+            }
+            $arreglo3Imagenes = $this->arregloAleatoriode3Id($arregloImagenes);
+        
+            $partida=Juego::create([
+                'imagen1' => $arreglo3Imagenes[0],
+                'imagen2' => $arreglo3Imagenes[1],
+                'imagen3' => $arreglo3Imagenes[2],
+                'jugador1' => $idUsuario,
+                'jugador2' => 0,
+                'jugador3' => 0,
+                'puntaje1' => 0,
+                'puntaje2' => 0,
+                'puntaje3' => 0,
+                'juego_terminado' => 'no',
+                'imagen_jugando' => 0
+            ]);     
+            return to_route('partida',['partida'=>$partida]);
+        }else
+        {
+            return back()->with('no creado','no hay imagenes suficientes para crear la partida');
         }
-        $arreglo3Imagenes = $this->arregloAleatoriode3Id($arregloImagenes);
-        
-        $partida=Juego::create([
-            'imagen1' => $arreglo3Imagenes[0],
-            'imagen2' => $arreglo3Imagenes[1],
-            'imagen3' => $arreglo3Imagenes[2],
-            'jugador1' => $idUsuario,
-            'jugador2' => 0,
-            'jugador3' => 0,
-            'puntaje1' => 0,
-            'puntaje2' => 0,
-            'puntaje3' => 0,
-            'juego_terminado' => 'no',
-            'imagen_jugando' => 0
-        ]);
-        
-        return to_route('partida',['partida'=>$partida]);
     }
     public function index(){
         $partidas = Juego::get();        
