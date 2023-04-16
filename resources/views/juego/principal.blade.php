@@ -14,6 +14,9 @@
             <h1 class="text-3xl text-white text-center pb-2" >Partidas</h1>
             <div class="jugar">
                 <a href="{{route('CrearJuego')}}"><h2 class="ml-2 pl-2 w-40 text-white border-2 border-slate-800 hover:border-slate-400 hover:bg-slate-700 rounded-lg">Crear partida nueva</h2></a>
+                @if (session('no creado')) 
+                   {{ session('no creado') }} 
+                @endif
             </div>
             @foreach ($partidas as $partida )
                 @if ($partida->jugador3==0)
